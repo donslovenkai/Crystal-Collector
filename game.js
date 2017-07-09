@@ -1,0 +1,106 @@
+//VARIABLES Global variables and initial defaults
+
+var recRanNumRed = Math.floor(Math.random() * 12 + 1);
+var recRanNumBlue = Math.floor(Math.random() * 12 + 1);
+var recRanNumYellow = Math.floor(Math.random() * 12 + 1);
+var recRanNumGreen = Math.floor(Math.random() * 12 + 1);
+var addArray = [];
+var sum = 0;
+var bigNumber = Math.floor((Math.random() * (120 - 1)) + 19);
+var wins = 0;
+var losses = 0;
+
+
+
+$(document).ready(function() {
+
+    setBigNumber();
+
+    // CALLS THE FUNCTIONS
+    $('#red').on('click', genRanNumRed);
+    $('#blue').on('click', genRanNumBlue);
+    $('#yellow').on('click', genRanNumYellow);
+    $('#green').on('click', genRanNumGreen);
+});
+
+// SETS BASE NUMBER TO MATCH
+function setBigNumber() {
+    $('#demo').html(bigNumber);
+}
+
+// Functions for gems; pushes number to array for diagnostics, adds integer to sum, updates HTML, 
+
+// FUNCTION FOR RED GEM
+function genRanNumRed() {
+    addArray.push(recRanNumRed);
+    sum = sum + recRanNumRed;
+    updateTotalDiv();
+    displayArray();
+    testIfLimitExceeded();
+}
+
+// FUNCTION FOR BLUE GEM
+function genRanNumBlue() {
+    addArray.push(recRanNumBlue);
+    sum = sum + recRanNumBlue;
+    displayArray();
+    updateTotalDiv();
+    testIfLimitExceeded();
+}
+
+// FUNCTION FOR YELLOW GEM
+function genRanNumYellow() {
+    addArray.push(recRanNumYellow);
+    sum = sum + recRanNumYellow;
+    displayArray();
+    updateTotalDiv();
+    testIfLimitExceeded();
+}
+
+// THIS IS THE GREEN GEM
+function genRanNumGreen() {
+    addArray.push(recRanNumGreen);
+    sum = sum + recRanNumGreen;
+    displayArray();
+    updateTotalDiv();
+    testIfLimitExceeded();
+}
+
+function displayArray() {
+    console.dir(addArray);
+}
+
+function updateTotalDiv() {
+    document.getElementById("scoreTotal").innerHTML = sum;
+}
+
+//FUNCTION TO TEST IF BIG (BASE) NUMBER IS EXCEEDED, THEN TALLIES WINS OR LOSSES
+function testIfLimitExceeded() {
+    if (sum > bigNumber) {
+        console.log("You lose!");
+        losses++;
+        $("#losses").html(losses);
+        resetGame();
+        updateTotalDiv();
+        setBigNumber();
+    } else if (sum === bigNumber) {
+        console.log("You WIN!");
+        wins++;
+        $("#wins").html(wins);
+        resetGame();
+        updateTotalDiv();
+        setBigNumber();
+    }
+
+    //RESET GAME AFTER WIN OR LOSS, DOES NOT CLEAR WIN/LOSS
+
+    function resetGame() {
+        recRanNumRed = Math.floor(Math.random() * 12 + 1);
+        recRanNumBlue = Math.floor(Math.random() * 12 + 1);
+        recRanNumYellow = Math.floor(Math.random() * 12 + 1);
+        recRanNumGreen = Math.floor(Math.random() * 12 + 1);
+        addArray = [];
+        sum = 0;
+        bigNumber = Math.floor((Math.random() * (120 - 1)) + 19);
+    }
+}
